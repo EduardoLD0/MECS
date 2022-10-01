@@ -1,8 +1,8 @@
-#include<stdio.h>
-#include<string.h>	//strlen
-#include<sys/socket.h>
-#include<arpa/inet.h>	//inet_addr
-#include<unistd.h>	//write
+#include <stdio.h>
+#include <string.h>	//strlen
+#include <sys/socket.h>
+#include <arpa/inet.h>	//inet_addr
+#include <unistd.h>	//write
 #include <pthread.h>
 #include <stdlib.h>
 
@@ -11,6 +11,7 @@ char ret_status [10][100];
 int i = 0;
 char *arg1, *arg2;
 
+// Dividir el comando en argumentos
 void split(char input[SIZE_INPUT], char command[SIZE_INPUT], char args[3][SIZE_INPUT])
 {
 	int i = 0;
@@ -27,7 +28,7 @@ void split(char input[SIZE_INPUT], char command[SIZE_INPUT], char args[3][SIZE_I
 	}
 }
 
-void *createDocker(void *arg)
+void *createDocker(void *arg) // Crear contenedor
 {
 
 	int pid = fork();
@@ -39,7 +40,7 @@ void *createDocker(void *arg)
 	pthread_exit(ret_status [i]);
 }
 
-void *listDocker(void *arg)
+void *listDocker(void *arg) // Listar todos los contenedores
 {
 	int pid = fork();
 	if(pid == 0)
@@ -50,7 +51,7 @@ void *listDocker(void *arg)
 	pthread_exit(ret_status [i]);
 }
 
-void *stopDocker(void *arg)
+void *stopDocker(void *arg) // Detener un contenedor
 {
 	int pid = fork();
 	if(pid == 0)
@@ -61,7 +62,7 @@ void *stopDocker(void *arg)
 	pthread_exit(ret_status [i]);
 }
 
-void *removeDocker(void *arg)
+void *removeDocker(void *arg) // Eliminar un contenedor ya detenido
 {
 	int pid = fork();
 	if(pid == 0)
